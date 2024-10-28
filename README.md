@@ -1,85 +1,92 @@
-# Implementation-of-Linear-Regression-Using-Gradient-Descent
+Implementation-of-Simple-Linear-Regression-Model-for-Predicting-the-Marks-Scored
+AIM:
+To write a program to predict the marks scored by a student using the simple linear regression model.
 
-## AIM:
-To write a program to predict the profit of a city using the linear regression model with gradient descent.
-
-## Equipments Required:
-1. Hardware – PCs
-2. Anaconda – Python 3.7 Installation / Jupyter notebook
-
-## Algorithm
-1.Import the required library and read the dataframe.
-
-2.Write a function computeCost to generate the cost function.
-
-3.Perform iterations og gradient steps with learning rate.
-
-4.Plot the Cost function using Gradient Descent and generate the required graph.
-
-## Program:
-
-Program to implement the linear regression using gradient descent.
+Equipments Required:
+Hardware – PCs
+Anaconda – Python 3.7 Installation / Jupyter notebook
+Algorithm
+Gather data consisting of two variables. Input- a factor that affects the marks and Output - the marks scored by students
+Plot the data points on a graph where x-axis represents the input variable and y-axis represents the marks scored
+Define and initialize the parameters for regression model: slope controls the steepness and intercept represents where the line crsses the y-axis
+Use the linear equation to predict marks based on the input Predicted Marks = m.(hours studied) + b
+for each data point calculate the difference between the actual and predicted marks
+Adjust the values of m and b to reduce the overall error. The gradient descent algorithm helps update these parameters based on the calculated error
+Once the model parameters are optimized, use the final equation to predict marks for any new input data
+Program:
+/*
+Program to implement the simple linear regression model for predicting the marks scored.
 Developed by: Preethi S
+RegisterNumber: 212223230157
 
-RegisterNumber:  212223230157
-
-```
-import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-def linear_regression(X1, y, learning_rate=0.01, num_iters=1000):
-  X=np.c_[np.ones(len(X1)), X1]
-
-  theta=np.zeros(X.shape[1]).reshape(-1,1)
-
-  for _ in range(num_iters):
-    predictions=(X).dot(theta).reshape(-1,1)
-    errors=(predictions-y)
-    theta-=learning_rate*(1/len(X1))*X.T.dot(errors)
-  return theta
-
-data=pd.read_csv('50_Startups.csv',header=None)
-print(data.head())
-```
-![image](https://github.com/user-attachments/assets/1deb79cf-cf39-495d-bbfe-c30fe9fef3cc)
-
-```
-X=(data.iloc[1:, :-2].values)
-print(X)
-X1=X.astype(float)
-scaler=StandardScaler()
-y=(data.iloc[1: ,-1].values).reshape(-1,1)
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+df = pd.read_csv('student_scores.csv')
+print(df)
+print()
+df.head(0)
+df.tail(0)
+print(df.head())
+print(df.tail())
+x = df.iloc[:,:-1].values
+print(x)
+y = df.iloc[:,1].values
 print(y)
-```
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(x_train,y_train)
+y_pred = regressor.predict(x_test)
+print(y_pred)
+print(y_test)
 
-![image](https://github.com/user-attachments/assets/071c12fb-ad2a-43db-8a0f-f29b12f27b2b)
+#Graph plot for training data
 
-![image](https://github.com/user-attachments/assets/063acc9f-1f21-4d84-b163-9d93878f7838)
-```
-X1_Scaled=scaler.fit_transform(X1)
-Y1_Scaled=scaler.fit_transform(y)
-print(X1_Scaled)
-print(Y1_Scaled)
-```
-![image](https://github.com/user-attachments/assets/147157a0-fcf8-4a91-8056-f68f16139a2f)
+plt.scatter(x_train,y_train,color='black')
+plt.plot(x_train,regressor.predict(x_train),color='blue')
+plt.title("Hours vs Scores(Training set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
 
-![image](https://github.com/user-attachments/assets/81b1e159-2b4a-4b1e-a3ca-f9a832727862)
+#Graph plot for test data
 
-```
-theta=linear_regression(X1_Scaled, Y1_Scaled)
+plt.scatter(x_test,y_test,color='black')
+plt.plot(x_train,regressor.predict(x_train),color='red')
+plt.title("Hours vs Scores(Testing set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
+mse=mean_absolute_error(y_test,y_pred)
+print('MSE = ',mse)
+mae=mean_absolute_error(y_test,y_pred)
+print('MAE = ',mae)
+rmse=np.sqrt(mse)
+print("RMSE= ",rmse) 
+*/
+Output:
+Head and Tail
+Screenshot 2024-09-14 154846
 
-new_data=np.array([165349.2,136897,471784.1]).reshape(-1,1)
-new_Scaled=scaler.fit_transform(new_data)
-prediction=np.dot(np.append(1, new_Scaled), theta)
-prediction=prediction.reshape(-1,1)
-pre=scaler.inverse_transform(prediction)
-print(f"Predicted value: {pre}")
-```
-![image](https://github.com/user-attachments/assets/6213b972-a570-4313-87fa-499a6414eb21)
+X and Y
+Screenshot 2024-10-19 173916
 
+Screenshot 2024-10-19 173929
 
+Training data
+Screenshot 2024-09-14 154930
 
+Plot for training set
+Screenshot 2024-09-14 154950
 
+Plot for test set
+Screenshot 2024-09-14 155012
 
-## Result:
-Thus the program to implement the linear regression using gradient descent is written and verified using python programming.
+MSE, MAE, RMSE values
+Screenshot 2024-09-14 155028
+
+Result:
+Thus the program to implement the simple linear regression model for predicting the marks scored is written and verified using python programming.
