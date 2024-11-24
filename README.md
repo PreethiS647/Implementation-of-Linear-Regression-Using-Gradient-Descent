@@ -3,15 +3,20 @@
 To write a program to predict the profit of a city using the linear regression model with gradient descent.
 
 # Equipments Required:
+
 Hardware – PCs
 Anaconda – Python 3.7 Installation / Jupyter notebook
-Algorithm
-Import numpy, pandas, and StandardScaler from sklearn.preprocessing.
-Read '50_Startups.csv' into a DataFrame (data) using pd.read_csv().
-Extract features (X) and target variable (y) from the DataFrame. Convert features to a numpy array (x1) and target variable to a numpy array (y). Scale the features using StandardScaler(). Linear Regression Function:
-Define linear_regression(X1, y) function for linear regression. Add a column of ones to features for the intercept term. Initialize theta as a zero vector. Implement gradient descent to update theta. Model Training and Prediction:
-Call linear_regression function with scaled features (x1_scaled) and target variable (y). Prepare new data for prediction by scaling and reshaping. Use the optimized theta to predict the output for new data. Print Prediction:
-Inverse transform the scaled prediction to get the actual predicted value. Print the predicted value
+
+# Algorithm
+
+1. Import numpy, pandas, and StandardScaler from sklearn.preprocessing.
+2. Read '50_Startups.csv' into a DataFrame (data) using pd.read_csv().
+3. Extract features (X) and target variable (y) from the DataFrame. Convert features to a numpy array (x1) and target variable to a  
+ numpy array (y). Scale the features using StandardScaler(). Linear Regression Function:
+4. Define linear_regression(X1, y) function for linear regression. Add a column of ones to features for the intercept term. Initialize theta as a zero vector. Implement gradient descent to update theta. Model Training and Prediction:
+5. Call linear_regression function with scaled features (x1_scaled) and target variable (y). Prepare new data for prediction by scaling and reshaping. Use the optimized theta to predict the output for new data. Print Prediction:
+6. Inverse transform the scaled prediction to get the actual predicted value. Print the predicted value
+7. 
 # Program:
 Program to implement the linear regression using gradient descent.
 Developed by:Preethi S
@@ -58,15 +63,19 @@ print(f"Predicted value: {pre}")
 ![363420043-ad48d1d5-a1a8-41a5-b4f3-c6613ce088e2](https://github.com/user-attachments/assets/338c6a61-898d-4fd6-812c-d44d187b7f84)
 
 X
+
 ![382651061-7650568c-1516-4917-a9b9-f5d93635b967](https://github.com/user-attachments/assets/0a6f07c4-66b0-466b-91f7-f638ef23e03b)
 
 Y
+
 ![382651132-615fe446-ddef-4f0c-92b0-884ebe1e7e80](https://github.com/user-attachments/assets/62c95620-9deb-43ad-bc88-800d8a59a111)
 
 Scaled values
+
 ![382651167-5c4efc93-7e6b-4118-8b15-2d839a13f6f7](https://github.com/user-attachments/assets/90677142-4acf-437b-b5d1-371fb3fa08dd)
 
 Predicted Values
+
 ![382651288-cb702337-7080-4e6d-b449-bd8adc5be1b4](https://github.com/user-attachments/assets/1a6fced3-106e-446d-9dfd-a09927b5c965)
 
 # Result:
