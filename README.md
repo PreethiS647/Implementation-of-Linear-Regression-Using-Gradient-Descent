@@ -1,108 +1,73 @@
-# Implementation-of-Simple-Linear-Regression-Model-for-Predicting-the-Marks-Scored
+## Implementation-of-Linear-Regression-Using-Gradient-Descent
+# AIM:
+To write a program to predict the profit of a city using the linear regression model with gradient descent.
 
-## AIM:
-To write a program to predict the marks scored by a student using the simple linear regression model.
-
-## Equipments Required:
-1. Hardware – PCs
-2. Anaconda – Python 3.7 Installation / Jupyter notebook
-
-## Algorithm
-1. Gather data consisting of two variables. Input- a factor that affects the marks and Output - the marks scored by students
-2. Plot the data points on a graph where x-axis represents the input variable and y-axis represents the marks scored
-3. Define and initialize the parameters for regression model: slope  controls the steepness and intercept represents where the line crsses the y-axis
-4. Use the linear equation to predict marks based on the input
-   Predicted Marks = m.(hours studied) + b
-5. for each data point calculate the difference between the actual and predicted marks
-6. Adjust the values of m and b to reduce the overall error. The gradient descent algorithm helps update these parameters based on the calculated error
-7. Once the model parameters are optimized, use the final equation to predict marks for any new input data
-   
-## Program:
+# Equipments Required:
+Hardware – PCs
+Anaconda – Python 3.7 Installation / Jupyter notebook
+Algorithm
+Import numpy, pandas, and StandardScaler from sklearn.preprocessing.
+Read '50_Startups.csv' into a DataFrame (data) using pd.read_csv().
+Extract features (X) and target variable (y) from the DataFrame. Convert features to a numpy array (x1) and target variable to a numpy array (y). Scale the features using StandardScaler(). Linear Regression Function:
+Define linear_regression(X1, y) function for linear regression. Add a column of ones to features for the intercept term. Initialize theta as a zero vector. Implement gradient descent to update theta. Model Training and Prediction:
+Call linear_regression function with scaled features (x1_scaled) and target variable (y). Prepare new data for prediction by scaling and reshaping. Use the optimized theta to predict the output for new data. Print Prediction:
+Inverse transform the scaled prediction to get the actual predicted value. Print the predicted value
+# Program:
+Program to implement the linear regression using gradient descent.
+Developed by:Preethi S
+RegisterNumber:  212223230157
 ```
-/*
-Program to implement the simple linear regression model for predicting the marks scored.
-Developed by: Preethi S
-RegisterNumber: 212223230157
-
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import mean_absolute_error,mean_squared_error
-df = pd.read_csv('student_scores.csv')
-print(df)
-print()
-df.head(0)
-df.tail(0)
-print(df.head())
-print(df.tail())
-x = df.iloc[:,:-1].values
-print(x)
-y = df.iloc[:,1].values
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+def linear_regression(X1, y, learning_rate=0.01, num_iters=1000):
+  X=np.c_[np.ones(len(X1)), X1]
+  theta=np.zeros(X.shape[1]).reshape(-1,1)
+  for _ in range(num_iters):
+    predictions=(X).dot(theta).reshape(-1,1)
+    errors=(predictions-y)
+    theta-=learning_rate*(1/len(X1))*X.T.dot(errors)
+  return theta
+data=pd.read_csv('50_Startups.csv',header=None)
+print(data.head())
+
+
+X=(data.iloc[1:, :-2].values)
+print(X)
+X1=X.astype(float)
+scaler=StandardScaler()
+y=(data.iloc[1: ,-1].values).reshape(-1,1)
 print(y)
-from sklearn.model_selection import train_test_split
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
-from sklearn.linear_model import LinearRegression
-regressor = LinearRegression()
-regressor.fit(x_train,y_train)
-y_pred = regressor.predict(x_test)
-print(y_pred)
-print(y_test)
 
-#Graph plot for training data
 
-plt.scatter(x_train,y_train,color='black')
-plt.plot(x_train,regressor.predict(x_train),color='blue')
-plt.title("Hours vs Scores(Training set)")
-plt.xlabel("Hours")
-plt.ylabel("Scores")
-plt.show()
+X1_Scaled=scaler.fit_transform(X1)
+Y1_Scaled=scaler.fit_transform(y)
+print(X1_Scaled)
+print(Y1_Scaled)
 
-#Graph plot for test data
 
-plt.scatter(x_test,y_test,color='black')
-plt.plot(x_train,regressor.predict(x_train),color='red')
-plt.title("Hours vs Scores(Testing set)")
-plt.xlabel("Hours")
-plt.ylabel("Scores")
-plt.show()
-mse=mean_absolute_error(y_test,y_pred)
-print('MSE = ',mse)
-mae=mean_absolute_error(y_test,y_pred)
-print('MAE = ',mae)
-rmse=np.sqrt(mse)
-print("RMSE= ",rmse) 
-*/
+theta=linear_regression(X1_Scaled, Y1_Scaled)
+new_data=np.array([165349.2,136897,471784.1]).reshape(-1,1)
+new_Scaled=scaler.fit_transform(new_data)
+prediction=np.dot(np.append(1, new_Scaled), theta)
+prediction=prediction.reshape(-1,1)
+pre=scaler.inverse_transform(prediction)
+print(f"Predicted value: {pre}")
 ```
+# Output:
+![363420043-ad48d1d5-a1a8-41a5-b4f3-c6613ce088e2](https://github.com/user-attachments/assets/338c6a61-898d-4fd6-812c-d44d187b7f84)
 
-## Output:
+X
+![382651061-7650568c-1516-4917-a9b9-f5d93635b967](https://github.com/user-attachments/assets/0a6f07c4-66b0-466b-91f7-f638ef23e03b)
 
-# Head and Tail
+Y
+![382651132-615fe446-ddef-4f0c-92b0-884ebe1e7e80](https://github.com/user-attachments/assets/62c95620-9deb-43ad-bc88-800d8a59a111)
 
-![Screenshot 2024-09-14 154846](https://github.com/user-attachments/assets/a9f319a1-c104-4c7f-aead-232905744783)
+Scaled values
+![382651167-5c4efc93-7e6b-4118-8b15-2d839a13f6f7](https://github.com/user-attachments/assets/90677142-4acf-437b-b5d1-371fb3fa08dd)
 
-# X and Y
+Predicted Values
+![382651288-cb702337-7080-4e6d-b449-bd8adc5be1b4](https://github.com/user-attachments/assets/1a6fced3-106e-446d-9dfd-a09927b5c965)
 
-![Screenshot 2024-10-19 173916](https://github.com/user-attachments/assets/0b027f04-0a68-4934-92ab-a00e141f204a)
-
-![Screenshot 2024-10-19 173929](https://github.com/user-attachments/assets/eb01b2e1-f76d-49f7-80e4-2c3462f4c11a)
-
-
-# Training data
-
-![Screenshot 2024-09-14 154930](https://github.com/user-attachments/assets/608786a8-45c5-4bf4-b022-9a34d9bde8f1)
-
-# Plot for training set
-
-![Screenshot 2024-09-14 154950](https://github.com/user-attachments/assets/5c5ae456-cdd0-4536-baec-20b0008bbfa6)
-
-# Plot for test set
-
-![Screenshot 2024-09-14 155012](https://github.com/user-attachments/assets/af3f6b1b-7bfd-4f6d-b6d3-f09a9e5528c8)
-
-# MSE, MAE, RMSE values
-
-![Screenshot 2024-09-14 155028](https://github.com/user-attachments/assets/807200e9-440c-4453-af3f-285d292451b9)
-
-
-## Result:
-Thus the program to implement the simple linear regression model for predicting the marks 
+# Result:
+Thus the program to implement the linear regression using gradient descent is written and verified using python programming.
